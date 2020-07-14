@@ -2,6 +2,17 @@ from django.shortcuts import render
 from django.views import View
 
 
-class MainView(View):
+class LandingPage(View):
     def get(self, request):
-        return render(request, '__base__.html')
+        return render(request, 'index.html')
+
+
+class AddDonation(View):
+    def get(self, request):
+        return render(request, 'form.html')
+
+
+# temporary
+class DonationAdded(View):
+    def get(self, request):
+        return render(request, 'form-confirmation.html')
