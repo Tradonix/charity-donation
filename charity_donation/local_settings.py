@@ -10,4 +10,5 @@ DATABASES = {
         'USER': 'postgres',
         'PORT': 5432
     }
+
 }
