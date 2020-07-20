@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
 from django.views import View
 
@@ -7,6 +8,7 @@ class LandingPage(View):
         return render(request, 'index.html')
 
 
+# class AddDonation(LoginRequiredMixin, View):
 class AddDonation(View):
     def get(self, request):
         return render(request, 'form.html')
