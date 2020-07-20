@@ -10,9 +10,9 @@ class Institution(models.Model):
     name = models.CharField(max_length=64)
     description = models.TextField()
     types = [
-        ('FU', 'fundacja'),
-        ('OP', 'organizacja porządkowa'),
-        ('ZL', 'zbiórka lokalna')
+        ('FU', 'Fundacja'),
+        ('OP', 'Organizacja porządkowa'),
+        ('ZL', 'Zbiórka lokalna')
     ]
     type = models.CharField(max_length=2, choices=types, default=1)
     categories = models.ManyToManyField(Category)

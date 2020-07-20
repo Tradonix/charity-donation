@@ -229,12 +229,125 @@ document.addEventListener("DOMContentLoaded", function() {
         if (slide.dataset.step == this.currentStep) {
           slide.classList.add("active");
         }
+
       });
 
       this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
       this.$step.parentElement.hidden = this.currentStep >= 6;
 
       // TODO: get data from inputs and show them in summary
+      this.no_bags = parseInt(document.querySelector('.step2 .form-group--inline').
+          children[0].children[0].value);
+      // after step 1
+      if(this.currentStep == 2) {
+        let inputs = document.querySelectorAll('.step1 .form-group--checkbox');
+        this.categories_ids = [];
+        this.categories_names = [];
+        inputs.forEach(el => {
+          if(el.children[0].children[0].checked === true){
+            this.categories_ids.push(parseInt(el.children[0].children[0].value,10));
+            this.categories_names.push(el.children[0].children[2].textContent);
+          }
+        });
+      }
+
+      // before step 3
+      if (this.currentStep == 3) {
+        let inputs = document.querySelectorAll('.step3 .form-group--checkbox #categories');
+        inputs.forEach(input => {
+          input.parentElement.style.display = 'none';
+          let institutions_categories_ids = [];
+          input.value.toString().split(',').forEach(el => {
+          let value = parseInt(el, 10);
+          if(!isNaN(value)){
+            institutions_categories_ids.push(value);
+          }
+        });
+          let bool = true;
+          this.categories_ids.forEach(id => {
+            if(!institutions_categories_ids.includes(id)){
+              bool = false;
+            }
+          });
+          if(bool){
+          input.parentElement.style.display = 'block';
+          }
+        });
+      }
+        // after step 3
+      if(this.currentStep == 4){
+        let divs = document.querySelectorAll('.step3 .form-group--checkbox');
+        let inputs = [];
+        divs.forEach(div => {
+          inputs.push(div.children[0].children[0])
+        });
+        inputs.forEach(input => {
+          if(input.checked === true){
+            this.institution_id = input.value;
+            this.institution_name = input.parentElement.children[2].children[0].textContent;
+          }
+        });
+      }
+
+
+      if(this.currentStep == 5) {
+        // after step 4
+        this.address = {};
+        this.delivery = {};
+
+        let step4 = document.querySelector('.step4 .form-section--columns');
+
+        let street = step4.querySelector('#address');
+        this.address['street'] = street.value;
+
+        let city = step4.querySelector('#city');
+        this.address['city'] = city.value;
+
+        let postcode = step4.querySelector('#postcode');
+        this.address['postcode'] = postcode.value;
+
+        let phone = step4.querySelector('#phone');
+        this.address['phone'] = phone.value;
+
+        let date = step4.querySelector('#date');
+        this.delivery['date'] = date.value;
+
+        let time = step4.querySelector('#time');
+        this.delivery['time'] = time.value;
+
+        let more_info = step4.querySelector('#more_info');
+        this.delivery['more_info'] = more_info.value;
+
+        // before step 5
+
+        let bags = document.querySelector('.bags');
+        // zmien słowo worki żeby się odmieniało
+        bags.textContent = this.no_bags + " worki";
+
+        let institution = document.querySelector('.institution');
+        institution.textContent = this.institution_name;
+
+        let address_ = document.querySelector('.address');
+        let ul = address_.children[1];
+
+        ul.children[0].textContent = this.address.street;
+
+        ul.children[1].textContent = this.address.city;
+
+        ul.children[2].textContent = this.address.postcode;
+
+        ul.children[3].textContent = this.address.phone;
+
+        let delivery_ = document.querySelector('.delivery');
+        ul = delivery_.children[1];
+
+        ul.children[0].textContent = this.delivery.date;
+
+        ul.children[1].textContent = this.delivery.time;
+
+        ul.children[2].textContent = this.delivery.more_info;
+      }
+
     }
 
     /**

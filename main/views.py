@@ -2,6 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.shortcuts import render
 from django.views import View
 
+from main.models import Category, Institution
+
 
 class LandingPage(View):
     def get(self, request):
@@ -11,7 +13,9 @@ class LandingPage(View):
 # class AddDonation(LoginRequiredMixin, View):
 class AddDonation(View):
     def get(self, request):
-        return render(request, 'form.html')
+        context = {'categories': Category.objects.all()}
+        context['institutions'] = Institution.objects.all()
+        return render(request, 'form.html', context)
 
 
 # temporary

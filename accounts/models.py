@@ -34,12 +34,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    username = models.CharField(
-        _('username'),
-        max_length=150,
-        null=True,
-        default=None,
-    )
+    username = None
     # TODO fix for polish letters
     name_validator = RegexValidator(r'^[a-zA-Z]+$', 'Enter a valid name. This value may contain only letters.')
     first_name = models.CharField(
