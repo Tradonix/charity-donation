@@ -363,10 +363,17 @@ document.addEventListener("DOMContentLoaded", function () {
             $.ajax({
                 url: $('form').attr('action'),
                 data: $('form').serialize(),
+                dataType: "html",
                 type: 'POST',
                 success: function (data) {
-                    console.log()
-                }
+                    console.log('success');
+                    window.location.href = data;
+                },
+                // error: function (data) {
+                //     this.currentStep--;
+                //     this.updateForm();
+                //     alert(data);
+                // }
             });
         }
     }

@@ -19,4 +19,5 @@ from main import views
 urlpatterns = [
     path('', views.LandingPage.as_view(), name='landing_page'),
     path('donation/', views.AddDonation.as_view(), name='add_donation'),
+    path('donation/done/', views.DoneDonation.as_view(), name='done_donation'),
 ]
