@@ -53,7 +53,7 @@
       <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
-        <form method="post">
+        <form method="post" action="{% url 'add_donation' %}">
             {% csrf_token %}
           <!-- STEP 1: class .active is switching steps -->
           <div data-step="1" class="step1 active">
@@ -112,7 +112,7 @@
                   <div class="subtitle">Cel i misja: {{ institution.description }}</div>
                 </span>
               </label>
-                <input type="hidden" id="categories" name="categories" value=
+                <input type="hidden" id="categories" value=
                         "{% for category in institution.categories.iterator %}{{ category.id }}, {% endfor %}"/>
             </div>
 
