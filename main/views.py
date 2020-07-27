@@ -18,8 +18,7 @@ class LandingPage(View):
         return render(request, 'index.html', context)
 
 
-# class AddDonation(LoginRequiredMixin, View):
-class AddDonation(View):
+class AddDonation(LoginRequiredMixin, View):
     def get(self, request):
         context = {'categories': Category.objects.all(),
                    'institutions': Institution.objects.all()}

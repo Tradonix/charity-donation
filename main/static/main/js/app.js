@@ -359,8 +359,9 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             this.currentStep++;
             this.updateForm();
+            let x = this;
 
-            $.ajax({
+            let request = $.ajax({
                 url: $('form').attr('action'),
                 data: $('form').serialize(),
                 dataType: "html",
@@ -369,12 +370,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log('success');
                     window.location.href = data;
                 },
-                // error: function (data) {
-                //     this.currentStep--;
-                //     this.updateForm();
-                //     alert(data);
-                // }
             });
+
+            request.fail(function (data) {
+                    x.currentStep--;
+                    console.log(x.currentStep);
+                    x.updateForm();
+                    alert(data);
+                });
         }
     }
 
